@@ -27,16 +27,18 @@ def get_lighting(normal, view, ambient, light, symbols, reflect ):
     normalize(n)
     normalize(light[LOCATION])
     normalize(view)
-    r = symbols[reflect][1]
-
-    a = calculate_ambient(ambient, r)
-    d = calculate_diffuse(light, r, n)
-    s = calculate_specular(light, r, view, n)
 
     i = [0, 0, 0]
-    i[RED] = int(a[RED] + d[RED] + s[RED])
-    i[GREEN] = int(a[GREEN] + d[GREEN] + s[GREEN])
-    i[BLUE] = int(a[BLUE] + d[BLUE] + s[BLUE])
+    #r = symbols[reflect][1]
+    for c in range(1,len(symbols[reflect])):
+        r=symbols[reflect][c]
+        a = calculate_ambient(ambient, r)
+        d = calculate_diffuse(light, r, n)
+        s = calculate_specular(light, r, view, n)
+        
+        i[RED] = int(a[RED] + d[RED] + s[RED])+i[RED]
+        i[GREEN] = int(a[GREEN] + d[GREEN] + s[GREEN])+i[GREEN]
+        i[BLUE] = int(a[BLUE] + d[BLUE] + s[BLUE])+i[BLUE]
     limit_color(i)
 
     return i

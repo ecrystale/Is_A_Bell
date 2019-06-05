@@ -77,7 +77,10 @@ def run(filename):
     symbols['.white'] = ['constants',
                          {'red': [0.2, 0.5, 0.5],
                           'green': [0.2, 0.5, 0.5],
-                          'blue': [0.2, 0.5, 0.5]}]
+                          'blue': [0.2, 0.5, 0.5]},
+                         {'red': [0.7, 0.2, 0],
+                          'green': [0.2, 0, 0.5],
+                          'blue': [0, 0.5, 0.5]}]
     reflect = '.white'
 
     (name, num_frames) = first_pass(commands)
