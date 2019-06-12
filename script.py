@@ -172,7 +172,6 @@ def run(filename):
             while line:
                 stuff = line.split()
                 if len(stuff) > 0:
-
                     if 'v' in stuff[0]:
                         vectors.append([float(stuff[1]), float(stuff[2]), float(stuff[3])])
                     if stuff[0] == 'f':
@@ -185,10 +184,20 @@ def run(filename):
                 line = f.readline()
 
             for poly in polygons:
-                p0 = vectors[poly[0]]
-                p1 = vectors[poly[1]]
-                p2 = vectors[poly[2]]
-                add_polygon(tmp, p0[0], p0[1],p0[2], p1[0], p1[1], p1[2], p2[0],p2[1],p2[2])
+                if len(poly)>3:
+                    p0 = vectors[poly[0]]
+                    p1 = vectors[poly[1]]
+                    p2 = vectors[poly[2]]
+                    add_polygon(tmp, p0[0], p0[1],p0[2], p1[0], p1[1], p1[2], p2[0],p2[1],p2[2])
+                    p0 = vectors[poly[0]]
+                    p1 = vectors[poly[2]]
+                    p2 = vectors[poly[3]]
+                    add_polygon(tmp, p0[0], p0[1],p0[2], p1[0], p1[1], p1[2], p2[0],p2[1],p2[2])
+                else:
+                    p0 = vectors[poly[0]]
+                    p1 = vectors[poly[1]]
+                    p2 = vectors[poly[2]]
+                    add_polygon(tmp, p0[0], p0[1],p0[2], p1[0], p1[1], p1[2], p2[0],p2[1],p2[2])
             matrix_mult(stack[-1], tmp)
 
             if command['constants']:
