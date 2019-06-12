@@ -1,0 +1,6 @@
+constants red 1.0 0.0 0.0 0.3 0.8 0.2 0 0 0
+push
+move 250 250 0 
+scale 30 30 30
+mesh red :lamp
+display

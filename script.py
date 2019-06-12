@@ -160,6 +160,41 @@ def run(filename):
             matrix_mult( stack[-1], tmp )
             stack[-1] = [ x[:] for x in tmp]
             tmp = []
+        elif c == 'mesh':
+            file_name = command['cs'] + '.obj'
+            f = open(file_name, 'r')
+
+            vectors = []
+            polygons = []
+            result = []
+
+            line = f.readline()
+            while line:
+                stuff = line.split()
+                if len(stuff) > 0:
+
+                    if 'v' in stuff[0]:
+                        vectors.append([float(stuff[1]), float(stuff[2]), float(stuff[3])])
+                    if stuff[0] == 'f':
+                        faces = []
+                        for i in stuff[1:]:
+                            faces.append(int(i) - 1)
+                        polygons.append(faces)
+
+                print(line.strip('\n'))
+                line = f.readline()
+
+            for poly in polygons:
+                p0 = vectors[poly[0]]
+                p1 = vectors[poly[1]]
+                p2 = vectors[poly[2]]
+                add_polygon(tmp, p0[0], p0[1],p0[2], p1[0], p1[1], p1[2], p2[0],p2[1],p2[2])
+            matrix_mult(stack[-1], tmp)
+
+            if command['constants']:
+                reflect = command['constants']
+            draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+
         elif c == 'push':
             stack.append([x[:] for x in stack[-1]] )
         elif c == 'pop':
