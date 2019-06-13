@@ -56,10 +56,12 @@ def scanline_convert_g(polygons, i, screen,zbuffer, shading, view, ambient, ligh
     #color[GREEN] = (109*(i/3)) %256
     #color[BLUE] = (227*(i/3)) %256
 
-    bn=normalize(points[BOT])
-    mn=normalize(points[MID])
-    tn=normalize(points[TOP])
+    bn=(points[BOT])
+    mn=(points[MID])
+    tn=(points[TOP])
 
+    #print(points[BOT])
+    #print(bn)
     bc=get_lighting(bn, view, ambient, light, symbols, reflect ) 
     mc=get_lighting(mn, view, ambient, light, symbols, reflect )
     tc=get_lighting(tn, view, ambient, light, symbols, reflect )
@@ -90,8 +92,8 @@ def scanline_convert_g(polygons, i, screen,zbuffer, shading, view, ambient, ligh
             z1 = points[MID][2]
 
         #draw_line(int(x0), y, z0, int(x1), y, z1, screen, zbuffer, color)
-        i1=calc_shading(points[TOP][1], points[MID][1], y, tc, mc)
-        i2=calc_shading(points[MID][1], points[BOT][1], y, mc, bc)
+        i1=calc_shading(tn[1], mn[1], y, tc, mc)
+        i2=calc_shading(mn[1], bn[1], y, mc, bc)
         draw_scanline_g(int(points[BOT][0]), x0, int(points[BOT][2]), z1, y, screen, zbuffer, i1, i2)
 
         x0+= dx0
