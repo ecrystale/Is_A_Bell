@@ -77,7 +77,10 @@ def run(filename):
     symbols['.white'] = ['constants',
                          {'red': [0.2, 0.5, 0.5],
                           'green': [0.2, 0.5, 0.5],
-                          'blue': [0.2, 0.5, 0.5]}]
+                          'blue': [0.2, 0.5, 0.5]},
+                          {'red': [0.7, 0.2, 0],
+                          'green': [0.2, 0, 0.5],
+                            'blue': [0, 0.5, 0.5]}]
     symbols['shade_type'] = 'flat'
     reflect = '.white'
 
@@ -108,6 +111,16 @@ def run(filename):
             if command['constants']:
                 reflect = command['constants']
             add_box(tmp,
+                    args[0], args[1], args[2],
+                    args[3], args[4], args[5])
+            matrix_mult( stack[-1], tmp )
+            draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect, shading)
+            tmp = []
+            reflect = '.white'
+        elif c == 'pyramid':
+            if command['constants']:
+                reflect = command['constants']
+            add_pyramid(tmp,
                     args[0], args[1], args[2],
                     args[3], args[4], args[5])
             matrix_mult( stack[-1], tmp )

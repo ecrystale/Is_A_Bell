@@ -1,0 +1,28 @@
+constants shiny_pink 1 0.9372 0.8176 1 0.6509 0.6608 1 0.9568 0.8294
+constants matte_pink 1 0.9372 0 1 0.6509 0 1 0.9568 0
+
+shading flat
+
+push
+move 250 250 0
+scale 40 40 40
+mesh matte_pink :al
+display
+pop
+
+push
+move 125 250 0
+rotate x 30
+rotate y 40
+scale 3 3 3
+pyramid shiny_pink 0 0 0 50 50 50
+rotate z 30
+pop
+push
+move 325 250 0
+rotate x 30
+rotate y 40
+scale 3 3 3
+pyramid shiny_pink 0 0 0 50 50 50
+rotate z 30
+display
