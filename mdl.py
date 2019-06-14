@@ -13,6 +13,8 @@ tokens = (
     "CAMERA",
     "AMBIENT",
     "TORUS",
+    "CYLINDER",
+    "PYRAMID",
     "SPHERE",
     "BOX", 
     "LINE", 
@@ -53,6 +55,8 @@ reserved = {
     "ambient" : "AMBIENT",
     "torus" : "TORUS",
     "sphere" : "SPHERE",
+    "cylinder" : "CYLINDER",
+    "pyramid":"PYRAMID",
     "box" : "BOX",
     "line" : "LINE",
     "mesh" : "MESH",
@@ -167,6 +171,23 @@ def p_command_sphere(p):
                | SPHERE SYMBOL NUMBER NUMBER NUMBER NUMBER
                | SPHERE NUMBER NUMBER NUMBER NUMBER SYMBOL
                | SPHERE SYMBOL NUMBER NUMBER NUMBER NUMBER SYMBOL"""
+    cmd = {'op' : p[1], 'constants' : None, 'cs' : None, 'args':[]}
+    arg_start = 2
+    if isinstance(p[2], str):
+        cmd['constants'] = p[2]
+        arg_start = 3
+    if len(p) == 7 and isinstance(p[6], str):
+        cmd['cs'] = p[6]
+    if len(p) == 8 and isinstance(p[7], str):
+          cmd['cs'] = p[7]
+    cmd['args'] = p[arg_start:arg_start+4]
+    commands.append(cmd)
+
+def p_command_cylinder(p):
+    """command : CYLINDER NUMBER NUMBER NUMBER NUMBER
+               | CYLINDER SYMBOL NUMBER NUMBER NUMBER NUMBER
+               | CYLINDER NUMBER NUMBER NUMBER NUMBER SYMBOL
+               | CYLINDER SYMBOL NUMBER NUMBER NUMBER NUMBER SYMBOL"""
     cmd = {'op' : p[1], 'constants' : None, 'cs' : None, 'args':[]}
     arg_start = 2
     if isinstance(p[2], str):
