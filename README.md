@@ -3,5 +3,5 @@ Computer Graphics Final Project
 - Mesh (👍)
 - Shading (👎)
 - Lights (👍?)
-- Shapes (pyramid 👍)
+- Shapes (pyramid 👍)  
 run demo with `make`
