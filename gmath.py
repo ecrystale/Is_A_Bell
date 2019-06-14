@@ -20,24 +20,6 @@ LOCATION = 0
 COLOR = 1
 SPECULAR_EXP = 4
 
-        
-def calc_shading(x0, x1, x2, i0, i1):
-    ix = [0, 0, 0]
-    if x0 > x1:
-        #normalize(i0)
-        #normalize(i1)
-        for j in range(0, len(i0)):
-            ix[j] = ((x0-x2)/(x0-x1))*i0[j]+ ((x2-x1)/(x0-x1))*i1[j]
-        limit_color(ix)
-    elif x1 > x0:
-        #normalize(i0)
-        #normalize(i1)
-        for j in range(0, len(i0)):
-            ix[j] = ((x2-x1)/(x1-x0))*i0[j]+ ((x1-x2)/(x1-x0))*i1[j]
-        limit_color(ix)
-    return ix
-
-
 #lighting functions
 def get_lighting(normal, view, ambient, light, symbols, reflect ): 
     n = normal[:]
