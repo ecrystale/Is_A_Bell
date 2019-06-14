@@ -1,6 +1,6 @@
 Computer Graphics Final Project
 # Emily Lee, Johnson Li -- Team Is_A_Bell
-- Mesh (👍)
+- Mesh (👍 (slight problem but it's kinda ok))
 - Shading (👎)
 - Lights (👍?)
 - Shapes (pyramid 👍)  
