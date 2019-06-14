@@ -270,6 +270,77 @@ def add_pyramid( polygons, x, y, z, width, height, depth ):
     #add_polygon(polygons, x, y1, z, x1, y1, z1, x1, y1, z)
     #add_polygon(polygons, x, y1, z, x, y1, z1, x1, y1, z1)
 
+
+def add_cylinder(polygons, cx, cy, cz, r, h, step ):
+    points = generate_cylinder(cx, cy, cz, r, h, step)
+
+    lat_start = 0
+    lat_stop = step
+    longt_start = 0
+    longt_stop = step
+
+    step+= 1
+    for lat in range(lat_start, lat_stop):
+        for longt in range(longt_start, longt_stop):
+
+            p0 = lat * step + longt
+            p1 = p0+1
+            p2 = (p1+step) % (step * (step-1))
+            p3 = (p0+step) % (step * (step-1))
+
+            if longt != step - 2:
+                add_polygon( polygons, points[p0][0],
+                             points[p0][1],
+                             points[p0][2],
+                             points[p1][0],
+                             points[p1][1],
+                             points[p1][2],
+                             points[p2][0],
+                             points[p2][1],
+                             points[p2][2])
+            if longt != 0:
+                add_polygon( polygons, points[p0][0],
+                             points[p0][1],
+                             points[p0][2],
+                             points[p2][0],
+                             points[p2][1],
+                             points[p2][2],
+                             points[p3][0],
+                             points[p3][1],
+                             points[p3][2])
+
+
+def generate_cylinder( cx, cy, cz, r, h, step ):
+    points = []
+
+    rot_start = 0
+    rot_stop = step
+    circ_start = 0
+    circ_stop = step
+    z = cz
+    x=cx
+    y=cy
+    for rotation in range(rot_start, rot_stop):
+        rot = rotation/float(step)
+        for circle in range(circ_start, circ_stop+1):
+            circ = circle/float(step)
+
+            x = (r * math.cos(math.pi * circ))+ cx
+            #y = (r * math.sin(math.pi * circ) * math.cos(2*math.pi * rot)) + cy
+            z = (r * math.sin(math.pi * circ) * math.sin(2*math.pi * rot)) + cz
+ 
+            points.append([x, y, z])
+            #points.append([x, y+h, z])
+            #points.append([x, y, zc])
+            #points.append([x, y, zc])
+            #points.append([x, y+h, zc])
+            #print 'rotation: %d\tcircle%d'%(rotation, circle)
+        #z+=h/step
+        #x+=h/step
+        y+=h/step
+    return points
+
+
 def add_sphere(polygons, cx, cy, cz, r, step ):
     points = generate_sphere(cx, cy, cz, r, step)
 
