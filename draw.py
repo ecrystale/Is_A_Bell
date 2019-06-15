@@ -10,21 +10,30 @@ def draw_scanline_g(x0, z0, x1, z1, y, screen, zbuffer, i1,i2):
         z0 = z1
         x1 = tx
         z1 = tz
+        ti=i2
+        i2=i1
+        i1=ti
 
     x = x0
     z = z0
-    color = [x for x in i1]
+    #color = [x for x in i1]
     delta_z = (z1 - z0) / (x1 - x0 + 1) if (x1 - x0 + 1) != 0 else 0
-    limit_color(i1)
-    limit_color(i2)
-    delta_color = [(i2[x] - i1[x]) / (x1 - x0 + 1) if (x1 - x0 + 1) != 0 else 0 for x in range(3)]
+
+    delta_color = [((i2[j] - i1[j]) / (x1 - x0 + 1) if (x1 - x0 + 1) != 0 else 0) for j in range(3)]
 
     while x <= x1:
-        # print('plotting')
-        color = [int(color[f]) for f in range(3)]
-        plot(screen, zbuffer, color, x, y, z)
+        
+        for j in range(3):
+            if i1[j]>255:
+                i1[j]=255
+            if i1[j]<0:
+                i1[j] = 0
+
+        color = [int(i) for i in i1]
+   
+        plot(screen, zbuffer, color, int(x), int(y), z)
         for i in range(3):
-            color[i] += delta_color[i]
+            i1[i] += delta_color[i]
         x+= 1
         # print('x:' + str(x) + ' x1:'+ str(x1))
 
@@ -95,6 +104,7 @@ def scanline_convert_g(polygons, i, screen, zbuffer, view, ambient, light, symbo
     di1 = [difference_color2[x] / distance0 if distance0 != 0 else 0 for x in range(3)]
     di2 = [differebce_color1[x] / distance1 if distance1 != 0 else 0 for x in range(3)]
 
+
     while y <= int(points[TOP][1]):
         if ( not flip and y >= int(points[MID][1])):
             flip = True
@@ -104,6 +114,7 @@ def scanline_convert_g(polygons, i, screen, zbuffer, view, ambient, light, symbo
             di2 = [difference_color0[x] / distance2 if distance2 != 0 else 0 for x in range(3)]
             x1 = points[MID][0]
             z1 = points[MID][2]
+            i2=miid_color[:]
 
         draw_scanline_g(int(x0), z0, int(x1), z1, y, screen, zbuffer, i1, i2)
         for i in range(3):
