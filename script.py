@@ -101,7 +101,7 @@ def run(filename):
     coords1 = []
 
     for command in commands:
-        print command
+        #print command
         c = command['op']
         args = command['args']
         knob_value = 1
@@ -202,7 +202,7 @@ def run(filename):
                             faces.append(int(i) - 1)
                         polygons.append(faces)
 
-                print(line.strip('\n'))
+                #print(line.strip('\n'))
                 line = f.readline()
 
             for poly in polygons:
