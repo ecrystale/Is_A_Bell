@@ -1,23 +1,14 @@
 constants shiny_pink 1 0.9372 0.8176 1 0.6509 0.6608 1 0.9568 0.8294
 constants matte_pink 1 0.9372 0 1 0.6509 0 1 0.9568 0
-
-shading flat
-
-push
-move 250 250 0
-scale 40 40 40
-mesh matte_pink :al
-display
-pop
+constants shiny_white 0.1 0.3 0.7 0.1 0.3 0.7 0.1 0.3 0.7
+constants shiny_teal 0.3 0.0 0.0 0.3 0.2 0.8 0.3 0.2 0.8
 
 push
-move 125 250 0
-rotate x 30
-rotate y 40
-scale 3 3 3
-pyramid shiny_pink 0 0 0 50 50 50
-rotate z 30
+move 150 225 -200
+scale 30 30 30
+mesh shiny_teal :lamp
 pop
+
 push
 move 325 250 0
 rotate x 30
@@ -25,4 +16,54 @@ rotate y 40
 scale 3 3 3
 pyramid shiny_pink 0 0 0 50 50 50
 rotate z 30
+pop
+
+
+push
+move 250 250 0
+scale 40 40 40
+mesh matte_pink :al
+pop
+
+shading gouraud
+push
+move 325 300 200
+scale 0.5 0.5 0.5
+rotate z 30
+mesh shiny_teal:diamond
+pop
+
+
+shading gouraud
 display
+push
+move 150 225 -200
+scale 30 30 30
+mesh shiny_teal :lamp
+pop
+
+push
+move 325 250 0
+rotate x 30
+rotate y 40
+scale 3 3 3
+pyramid shiny_pink 0 0 0 50 50 50
+rotate z 30
+pop
+
+
+push
+move 250 250 0
+scale 40 40 40
+mesh matte_pink :al
+pop
+push
+move 325 300 200
+scale 0.5 0.5 0.5
+rotate z 30
+mesh shiny_teal:diamond
+pop
+
+display
+
+save demo.png
